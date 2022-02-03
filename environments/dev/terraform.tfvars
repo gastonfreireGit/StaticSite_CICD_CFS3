@@ -17,7 +17,7 @@ gh-branch = "static-site-dev"
 ######
 # CodePipeline
 ######
-cp_name = "cp-staticsite-gf-dev"
+cp_name  = "cp-staticsite-gf-dev"
 iam_name = "role-staticsite-gf-dev"
 
 ######

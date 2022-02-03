@@ -1,4 +1,9 @@
 terraform {
+  backend "s3" {
+    bucket = "tf-backend-staticsite-gf"
+    key    = "environments/dev/terraform.tfstate"
+    region = "us-east-1"
+  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -23,8 +28,8 @@ module "s3_module" {
 }
 
 module "cf_module" {
-  source  = "../../modules/cf-module"
-  s3_name = var.s3_name
+  source     = "../../modules/cf-module"
+  s3_name    = var.s3_name
   cf_comment = var.cf_comment
   depends_on = [
     module.s3_module
@@ -35,6 +40,9 @@ module "cp_module" {
   source    = "../../modules/cp-module"
   s3_name   = var.s3_name
   gh-branch = var.gh-branch
-  iam_name = var.iam_name
-  cp_name = var.cp_name
+  iam_name  = var.iam_name
+  cp_name   = var.cp_name
+  depends_on = [
+    module.cf_module
+  ]
 }

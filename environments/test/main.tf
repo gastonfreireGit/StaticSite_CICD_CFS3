@@ -1,4 +1,9 @@
 terraform {
+  backend "s3" {
+    bucket = "tf-backend-staticsite-gf"
+    key    = "environments/test/terraform.tfstate"
+    region = "us-east-1"
+  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -37,4 +42,7 @@ module "cp_module" {
   gh-branch = var.gh-branch
   iam_name  = var.iam_name
   cp_name   = var.cp_name
+  depends_on = [
+    module.cf_module
+  ]
 }
