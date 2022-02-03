@@ -1,13 +1,13 @@
 ######
 # S3 Bucket name
 ######
-s3_name     = "staticsite-prod-gf"
+s3_name = "staticsite-prod-gf"
 
 ######
 # Common tags
 ######
 createdby = "gastonFreire"
-project = "training"
+project   = "training"
 
 ######
 # GitHub Branch name
@@ -17,7 +17,7 @@ gh-branch = "main"
 ######
 # CodePipeline
 ######
-cp_name = "cp-staticsite-gf-prod"
+cp_name  = "cp-staticsite-gf-prod"
 iam_name = "role-staticsite-gf-prod"
 
 ######
