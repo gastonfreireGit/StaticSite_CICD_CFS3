@@ -1,3 +1,8 @@
+data "aws_cloudfront_origin_access_identity" "staticsite-gf-oai" {
+
+  id = "E26RWMOJBFTRWY"
+}
+
 locals {
   s3_origin_id = "myS3Origin"
 }
@@ -8,13 +13,13 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     origin_id   = local.s3_origin_id
 
     s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.s3_oai.cloudfront_access_identity_path
+      origin_access_identity = data.aws_cloudfront_origin_access_identity.staticsite-gf-oai.cloudfront_access_identity_path
     }
   }
 
   enabled             = true
   is_ipv6_enabled     = true
-  comment             = "StaticSite-GF-S3"
+  comment             = var.cf_comment
   default_root_object = "index.html"
 
   default_cache_behavior {
@@ -93,10 +98,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     viewer_certificate {
     cloudfront_default_certificate = true
   }
-  depends_on = [
-    aws_cloudfront_origin_access_identity.s3_oai
-  ]
-
 }
 
 data "aws_s3_bucket" "static-site-cicd" {

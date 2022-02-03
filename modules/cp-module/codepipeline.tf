@@ -1,6 +1,6 @@
 # creation of codepipeline
 resource "aws_codepipeline" "codepipeline" {
-  name     = "cp-staticsite-gf"
+  name     = var.cp_name
   role_arn = aws_iam_role.codepipeline_role.arn
 
   artifact_store {
@@ -22,9 +22,9 @@ resource "aws_codepipeline" "codepipeline" {
       namespace        = "SourceVariables"
 
       configuration = {
-        ConnectionArn        = aws_codestarconnections_connection.codepipeline.arn
-        FullRepositoryId     = "gastonfreire3XM/StaticSite_CI-CD-FedeCor"
-        BranchName           = "staticsite-branch"
+        ConnectionArn        = "arn:aws:codestar-connections:us-east-1:424819937310:connection/4e3055b6-fd87-4abc-93ea-d67ae7119a65"
+        FullRepositoryId     = "gastonfreire3XM/StaticSite_CICD_CFS3"
+        BranchName           = var.gh-branch
         OutputArtifactFormat = "CODE_ZIP"
       }
     }
@@ -45,21 +45,21 @@ resource "aws_codepipeline" "codepipeline" {
 
       configuration = {
         Extract    = "true"
-        BucketName = "static-site-gf"
+        BucketName = var.s3_name
       }
     }
   }
 }
 
 # connection codepipeline
-resource "aws_codestarconnections_connection" "codepipeline" {
+/* resource "aws_codestarconnections_connection" "codepipeline" {
   name          = "connectionout-gf"
   provider_type = "GitHub"
-}
+} */
 
 # IAM policy
 resource "aws_iam_role" "codepipeline_role" {
-  name = "role-staticsite-gf"
+  name = var.iam_name
   
   assume_role_policy = templatefile("templates/iam-assume-policy.json", { aws_codepipeline = "cp-staticsite-gf" })
 }
