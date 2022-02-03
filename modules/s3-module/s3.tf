@@ -4,7 +4,6 @@ resource "aws_s3_bucket" "static-site-cicd" {
   acl    = "private"
   force_destroy = true
   policy = file("templates/s3-policy.json")
-  #policy = file("templates/s3-policy.json")
 
   website {
     index_document = "index.html"
