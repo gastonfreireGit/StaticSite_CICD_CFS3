@@ -1,1 +1,3 @@
-#s3_variable = "static-site-gf"
+output "siteURL" {
+  value = module.cf_module.staticsiteIP
+}
