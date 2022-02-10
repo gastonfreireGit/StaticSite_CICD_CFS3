@@ -1,3 +1,3 @@
 output "siteURL" {
-  value = module.cf_module.staticsiteIP
+  value = module.cf_module.siteURL
 }
