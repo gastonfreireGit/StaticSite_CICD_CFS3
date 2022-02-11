@@ -161,3 +161,18 @@ ________________________________________________________________________________
 
 **AWS CloudFront:**
 ![image](https://user-images.githubusercontent.com/97241135/153018069-937bcc4c-92de-4f8b-a394-4d23a6305fd3.png)
+
+**AWS CloudFront Invalidation:**
+
+- ### Using AWS Console:
+
+![image](https://user-images.githubusercontent.com/97241135/153607059-1a02a0ee-931a-4675-b9bd-bf239a4fd613.png)
+
+![image](https://user-images.githubusercontent.com/97241135/153607075-16e09749-8aa3-4803-a036-de917fe5e670.png)
+
+- ### Using AWS CLI:
+
+ ```
+aws cloudfront create-invalidation --distribution-id <DistributionID> --paths "/*"
+ ```
+
